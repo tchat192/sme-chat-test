@@ -4,10 +4,6 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-export const config = {
-  runtime: 'edge',
-};
-
 const SYSTEM_PROMPT = `You are Ali, a negotiation coach helping users classify their negotiation scenario and provide tailored guidance. [PROMPT_VERSION: 2.0.0]
 
   # CLASSIFICATION RULES
