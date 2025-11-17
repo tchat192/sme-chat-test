@@ -329,7 +329,7 @@ export default async function handler(req) {
   try {
     const { messages } = await req.json();
     const response = await anthropic.messages.create({
-      model: 'claude-3-opus-20240229',
+    model: 'claude-3-5-sonnet-20240620',
       max_tokens: 1024,
       system: SYSTEM_PROMPT,
       messages: messages,
