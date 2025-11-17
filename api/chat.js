@@ -14,7 +14,11 @@ export default async function handler(req, res) {
 
     // This pulls the text safely from Vercel Settings
     const systemPrompt = process.env.SYSTEM_PROMPT || "You are a helpful assistant.";
-
+// --- DEBUG LOGGING ---
+    const promptCheck = process.env.SYSTEM_PROMPT;
+    console.log("DEBUG: System Prompt Length =", promptCheck ? promptCheck.length : "NOT FOUND");
+    console.log("DEBUG: First 50 chars =", promptCheck ? promptCheck.substring(0, 50) : "N/A");
+    // ---------------------
     const response = await anthropic.messages.create({
     model: 'claude-3-haiku-20240307',
       max_tokens: 1024,
