@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     const systemPrompt = process.env.SYSTEM_PROMPT || "You are a helpful assistant.";
 
     const response = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20240620',
+    model: 'claude-3-haiku-20240307',
       max_tokens: 1024,
       temperature: 0.15,
       system: systemPrompt,
