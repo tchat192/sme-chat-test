@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decision Tree Test</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        #chat-history { height: 400px; border: 1px solid #ccc; overflow-y: scroll; padding: 10px; margin-bottom: 10px; }
+        .user { color: blue; font-weight: bold; }
+        .ai { color: green; font-weight: bold; }
+        .message { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Scenario Tester</h2>
+    <div id="chat-history"></div>
+    <textarea id="user-input" rows="3" style="width: 100%;" placeholder="Type here..."></textarea>
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        let conversation = [];
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const text = input.value;
+            if (!text) return;
+            const history = document.getElementById('chat-history');
+            history.innerHTML += `<div class="message"><span class="user">You:</span> ${text}</div>`;
+            input.value = '';
+            conversation.push({ role: 'user', content: text });
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages: conversation })
+                });
+                const data = await response.json();
+                const aiText = data.content[0].text;
+                history.innerHTML += `<div class="message"><span class="ai">System:</span> ${aiText}</div>`;
+                conversation.push({ role: 'assistant', content: aiText });
+                history.scrollTop = history.scrollHeight;
+            } catch (err) {
+                alert("Error connecting to AI");
+            }
+        }
+    </script>
+</body>
+</html>
