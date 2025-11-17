@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali V2 Decision Tree - UAT Feedback Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 16px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .info-box h3 {
+            color: #2d3748;
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .info-box p {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .info-box ul {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-left: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #2d3748;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #2d3748;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .radio-option label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-option label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .rating {
+            display: flex;
+            gap: 8px;
+        }
+
+        .rating input[type="radio"] {
+            display: none;
+        }
+
+        .rating label {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .rating input[type="radio"]:checked + label {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .rating label:hover {
+            border-color: #667eea;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .timestamp {
+            color: #a0aec0;
+            font-size: 12px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ali V2 Decision Tree - UAT Feedback</h1>
+        <p class="subtitle">User Acceptance Testing - Monday, November 18, 2025</p>
+
+        <div class="info-box">
+            <h3>📋 Testing Instructions</h3>
+            <p><strong>Production URL:</strong> <a href="https://sme-chat-test.vercel.app" target="_blank">https://sme-chat-test.vercel.app</a></p>
+            <p><strong>What to Test:</strong></p>
+            <ul>
+                <li>Classification accuracy - Does it route to the right scenario?</li>
+                <li>Adaptive reasoning - Does it pick up on nuances or is it too rigid?</li>
+                <li>Situational awareness - Does it ask the right questions based on what you tell it?</li>
+                <li>Guidance quality - Are the recommendations actually useful?</li>
+            </ul>
+            <p><strong>Note on Tone:</strong> This is baseline tone - we haven't optimized it yet. Focus your feedback on what coaching style would work better.</p>
+        </div>
+
+        <form id="feedbackForm">
+            <!-- Tester Info -->
+            <div class="section">
+                <div class="section-title">Tester Information</div>
+                <div class="form-group">
+                    <label for="testerName">Your Name</label>
+                    <input type="text" id="testerName" name="testerName" value="Scott" required>
+                </div>
+                <div class="form-group">
+                    <label for="testDate">Test Date</label>
+                    <input type="text" id="testDate" name="testDate" value="November 18, 2025" required>
+                </div>
+            </div>
+
+            <!-- Scenario Testing -->
+            <div class="section">
+                <div class="section-title">Scenario Testing</div>
+                <div class="form-group">
+                    <label>Which scenarios did you test? (check all that apply)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="scenario1" name="scenarios" value="weak-position">
+                            <label for="scenario1">Weak Position (timeline pressure)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="scenario2" name="scenarios" value="bargaining">
+                            <label for="scenario2">Bargaining (simple price + alternatives)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="scenario3" name="scenarios" value="trading">
+                            <label for="scenario3">Trading (multiple terms, medium trust)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="scenario4" name="scenarios" value="creating">
+                            <label for="scenario4">Creating (high trust, partnership expansion)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="scenario5" name="scenarios" value="partnering">
+                            <label for="scenario5">Partnering (5+ years, strategic alignment)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="scenarioNotes">Scenario Testing Notes</label>
+                    <textarea id="scenarioNotes" name="scenarioNotes" placeholder="Did the system classify scenarios correctly? Any misclassifications?"></textarea>
+                </div>
+            </div>
+
+            <!-- Adaptive Reasoning & Spectrum Assessment -->
+            <div class="section">
+                <div class="section-title">Adaptive Reasoning & Spectrum Assessment</div>
+                <div class="form-group">
+                    <label>Did the system pick up on nuances (spectrum awareness)?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="spectrum1" name="spectrumAssessment" value="yes-nuanced">
+                            <label for="spectrum1">✅ Yes, picked up on nuances and context</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="spectrum2" name="spectrumAssessment" value="somewhat">
+                            <label for="spectrum2">⚠️ Somewhat, but could be more adaptive</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="spectrum3" name="spectrumAssessment" value="no-binary">
+                            <label for="spectrum3">❌ No, still feels too binary/rigid</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="spectrumNotes">Spectrum/Adaptive Reasoning Notes</label>
+                    <textarea id="spectrumNotes" name="spectrumNotes" placeholder="Examples where it showed adaptive reasoning or where it felt too binary? Does it assess behavioral and social dynamics?"></textarea>
+                </div>
+            </div>
+
+            <!-- Tone Suggestions -->
+            <div class="section">
+                <div class="section-title">Tone Preferences (Baseline Only - Not Optimized)</div>
+                <div class="form-group">
+                    <label for="toneSuggestions">What coaching tonality would you like to see?</label>
+                    <textarea id="toneSuggestions" name="toneSuggestions" placeholder="This is baseline, generic tone. What would make it feel cooler and more engaging? What coaching style would resonate better?"></textarea>
+                </div>
+            </div>
+
+            <!-- Situational Awareness Questions -->
+            <div class="section">
+                <div class="section-title">Situational Awareness - Context Gathering</div>
+                <div class="form-group">
+                    <label>Did the system ask the right questions based on your situation?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="batching1" name="batchingBehavior" value="yes-appropriate">
+                            <label for="batching1">✅ Yes, asked strategic questions</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="batching2" name="batchingBehavior" value="yes-too-many">
+                            <label for="batching2">⚠️ Yes, but too many questions</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="batching3" name="batchingBehavior" value="no-jumped">
+                            <label for="batching3">❌ No, jumped to conclusions too quickly</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Question quality (1-5):</label>
+                    <div class="rating">
+                        <input type="radio" id="questions1" name="questionQuality" value="1">
+                        <label for="questions1">1</label>
+                        <input type="radio" id="questions2" name="questionQuality" value="2">
+                        <label for="questions2">2</label>
+                        <input type="radio" id="questions3" name="questionQuality" value="3">
+                        <label for="questions3">3</label>
+                        <input type="radio" id="questions4" name="questionQuality" value="4">
+                        <label for="questions4">4</label>
+                        <input type="radio" id="questions5" name="questionQuality" value="5">
+                        <label for="questions5">5</label>
+                    </div>
+                    <p class="timestamp">1 = Generic/Unhelpful, 5 = Strategic/Insightful</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="batchingNotes">Situational Awareness Notes</label>
+                    <textarea id="batchingNotes" name="batchingNotes" placeholder="Did the questions feel contextually aware? Did it gather the right information?"></textarea>
+                </div>
+            </div>
+
+            <!-- Guidance Quality -->
+            <div class="section">
+                <div class="section-title">Guidance & Deliverables</div>
+                <div class="form-group">
+                    <label>Did the system provide actionable guidance after classification?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="guidance1" name="guidanceProvided" value="yes-actionable">
+                            <label for="guidance1">✅ Yes, actionable and specific</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="guidance2" name="guidanceProvided" value="yes-generic">
+                            <label for="guidance2">⚠️ Yes, but too generic</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="guidance3" name="guidanceProvided" value="no">
+                            <label for="guidance3">❌ No, just classified without guidance</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Overall guidance quality (1-5):</label>
+                    <div class="rating">
+                        <input type="radio" id="guidance-rating1" name="guidanceQuality" value="1">
+                        <label for="guidance-rating1">1</label>
+                        <input type="radio" id="guidance-rating2" name="guidanceQuality" value="2">
+                        <label for="guidance-rating2">2</label>
+                        <input type="radio" id="guidance-rating3" name="guidanceQuality" value="3">
+                        <label for="guidance-rating3">3</label>
+                        <input type="radio" id="guidance-rating4" name="guidanceQuality" value="4">
+                        <label for="guidance-rating4">4</label>
+                        <input type="radio" id="guidance-rating5" name="guidanceQuality" value="5">
+                        <label for="guidance-rating5">5</label>
+                    </div>
+                    <p class="timestamp">1 = Unhelpful, 5 = Highly Actionable</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="guidanceNotes">Guidance Notes</label>
+                    <textarea id="guidanceNotes" name="guidanceNotes" placeholder="Examples of good/bad guidance? Were templates helpful?"></textarea>
+                </div>
+            </div>
+
+            <!-- Issues & Bugs -->
+            <div class="section">
+                <div class="section-title">Issues & Bugs</div>
+                <div class="form-group">
+                    <label for="issuesFound">Issues or bugs encountered</label>
+                    <textarea id="issuesFound" name="issuesFound" placeholder="List any errors, unexpected behavior, or technical issues"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="improvements">Suggested improvements</label>
+                    <textarea id="improvements" name="improvements" placeholder="What should we change/fix before production?"></textarea>
+                </div>
+            </div>
+
+            <!-- Overall Assessment -->
+            <div class="section">
+                <div class="section-title">Overall Assessment</div>
+                <div class="form-group">
+                    <label>Overall V2 Context Engine & Classifier rating (1-10):</label>
+                    <div class="rating">
+                        <input type="radio" id="overall1" name="overallRating" value="1">
+                        <label for="overall1">1</label>
+                        <input type="radio" id="overall2" name="overallRating" value="2">
+                        <label for="overall2">2</label>
+                        <input type="radio" id="overall3" name="overallRating" value="3">
+                        <label for="overall3">3</label>
+                        <input type="radio" id="overall4" name="overallRating" value="4">
+                        <label for="overall4">4</label>
+                        <input type="radio" id="overall5" name="overallRating" value="5">
+                        <label for="overall5">5</label>
+                        <input type="radio" id="overall6" name="overallRating" value="6">
+                        <label for="overall6">6</label>
+                        <input type="radio" id="overall7" name="overallRating" value="7">
+                        <label for="overall7">7</label>
+                        <input type="radio" id="overall8" name="overallRating" value="8">
+                        <label for="overall8">8</label>
+                        <input type="radio" id="overall9" name="overallRating" value="9">
+                        <label for="overall9">9</label>
+                        <input type="radio" id="overall10" name="overallRating" value="10">
+                        <label for="overall10">10</label>
+                    </div>
+                    <p class="timestamp">1 = Not Ready, 10 = Stakeholder Ready</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Stakeholder readiness (Tom & Mark):</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="ready1" name="productionReady" value="ready">
+                            <label for="ready1">✅ Ready for stakeholder review</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="ready2" name="productionReady" value="minor-fixes">
+                            <label for="ready2">⚠️ Ready with minor fixes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="ready3" name="productionReady" value="major-fixes">
+                            <label for="ready3">❌ Needs major fixes before showing Tom & Mark</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="finalComments">Final comments</label>
+                    <textarea id="finalComments" name="finalComments" placeholder="Any additional feedback, observations, or recommendations?"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+
+        <div class="footer">
+            <p><strong>Ali by Aligned - V2 Context Engine & Classifier UAT</strong></p>
+            <p>Model: Claude Sonnet 4.5</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect all form data
+            const formData = new FormData(e.target);
+            const data = {};
+
+            // Get all checkbox values
+            const scenarios = [];
+            document.querySelectorAll('input[name="scenarios"]:checked').forEach(cb => {
+                scenarios.push(cb.value);
+            });
+            data.scenarios = scenarios;
+
+            // Get all other form values
+            for (let [key, value] of formData.entries()) {
+                if (key !== 'scenarios') {
+                    data[key] = value;
+                }
+            }
+
+            // Format as readable text
+            let output = "=== ALI V2 DECISION TREE UAT FEEDBACK ===\n\n";
+            output += "TESTER INFORMATION\n";
+            output += `Tester: ${data.testerName || 'N/A'}\n`;
+            output += `Date: ${data.testDate || 'N/A'}\n\n`;
+
+            output += "SCENARIOS TESTED\n";
+            output += `Scenarios: ${data.scenarios.join(', ') || 'None selected'}\n`;
+            output += `Notes: ${data.scenarioNotes || 'N/A'}\n\n`;
+
+            output += "ADAPTIVE REASONING & SPECTRUM\n";
+            output += `Spectrum Assessment: ${data.spectrumAssessment || 'N/A'}\n`;
+            output += `Spectrum Notes: ${data.spectrumNotes || 'N/A'}\n\n`;
+
+            output += "TONE SUGGESTIONS\n";
+            output += `Tone Suggestions: ${data.toneSuggestions || 'N/A'}\n\n`;
+
+            output += "SITUATIONAL AWARENESS\n";
+            output += `Context Gathering: ${data.batchingBehavior || 'N/A'}\n`;
+            output += `Question Quality: ${data.questionQuality || 'N/A'}/5\n`;
+            output += `Situational Awareness Notes: ${data.batchingNotes || 'N/A'}\n\n`;
+
+            output += "GUIDANCE QUALITY\n";
+            output += `Guidance Provided: ${data.guidanceProvided || 'N/A'}\n`;
+            output += `Guidance Quality: ${data.guidanceQuality || 'N/A'}/5\n`;
+            output += `Guidance Notes: ${data.guidanceNotes || 'N/A'}\n\n`;
+
+            output += "ISSUES & IMPROVEMENTS\n";
+            output += `Issues: ${data.issuesFound || 'None reported'}\n`;
+            output += `Improvements: ${data.improvements || 'None suggested'}\n\n`;
+
+            output += "OVERALL ASSESSMENT\n";
+            output += `Overall Rating: ${data.overallRating || 'N/A'}/10\n`;
+            output += `Production Ready: ${data.productionReady || 'N/A'}\n`;
+            output += `Final Comments: ${data.finalComments || 'N/A'}\n`;
+
+            // Create downloadable text file
+            const blob = new Blob([output], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ali-v2-uat-feedback-${data.testerName || 'scott'}-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+
+            // Show success message
+            alert('✅ Feedback saved! Check your downloads folder for the feedback file.\n\nPlease send this file to Terrance via Slack.');
+        });
+    </script>
+</body>
+</html>
