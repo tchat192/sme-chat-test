@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     console.log("DEBUG: First 50 chars =", promptCheck ? promptCheck.substring(0, 50) : "N/A");
     // ---------------------
     const response = await anthropic.messages.create({
-      model: 'claude-3-opus-20240229',
+      model: 'claude-sonnet-4-5-20250929',
       max_tokens: 1024,
       temperature: 0.1,
       system: systemPrompt,
